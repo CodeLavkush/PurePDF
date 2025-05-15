@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{% static 'imgs/icon.png' %}">
+    <link rel="stylesheet" href="{% static 'css/root.css'%}">
+    <link rel="stylesheet" href="{% static 'css/home.css'%}">
+    <title>Home | PurePDF</title>
+</head>
+<body>
+    <section class="main-container">
+        <nav>
+            <h2>PurePDF</h2>
+        </nav>
+        <section class="convert">
+            <form method="POST" action="/" enctype="multipart/form-data" onsubmit="return makePDF()">
+                {% csrf_token %}
+                <label class="tool-label" for="tool">Choose a tool</label>
+                <select name="tool" id="tool" required onchange="toggleInputs()">
+                    <option value="compress">Compress PDF</option>
+                    <option value="merge">Merge PDFs</option>
+                    <option value="image-to-pdf">Image to PDF</option>
+                </select>
+                <input type="file" id="file-input" name="files" multiple>
+                <label class="file-label" for="file-input">Upload file</label>
+                <div class="file-count" id="file-count"></div>
+                <div class="file-list" id="file-list"></div>
+                <button type="submit">Upload</button>
+            </form>
+        </section>
+    </section>
+    <script src="{% static "scripts/upload.js"%}"></script>
+</body>
+</html>
